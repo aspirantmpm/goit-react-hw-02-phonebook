@@ -26,6 +26,11 @@ export class App extends Component {
       };
     });
   };
+  deleteContact = contactId => {
+    this.setState(prevState => ({
+      contacts: prevState.name.filter(name => name.id !== contactId),
+    }));
+  };
   render() {
     return (
       <div
@@ -41,7 +46,10 @@ export class App extends Component {
       >
         <GlobalStyle />
         <ContactForm onSubmit={this.addContact} />
-        <ContactList items={this.state.name} />
+        <ContactList
+          items={this.state.name}
+          deleteContact={this.deleteContact}
+        />
       </div>
     );
   }
