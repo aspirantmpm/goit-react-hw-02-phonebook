@@ -1,15 +1,24 @@
-import { Li } from './style';
-import { Button } from './style';
+import propTypes from 'prop-types';
+import { ContactItem } from './ContactItem';
+import { List } from './style';
 
-export const ContactList = ({ items, deleteContact }) => {
+export const ContactList = ({ filterContacts, deleteContact }) => {
   return (
-    <ul>
-      {items.map(item => (
-        <Li key={item.id}>
-          {item.name} : {item.number}
-              <Button onClick={() => { deleteContact(item.id) }}>Delete</Button>
-        </Li>
+    <List>
+      {filterContacts.map(({ name, number, id }) => (
+        <ContactItem
+          key={id}
+          name={name}
+          id={id}
+          number={number}
+          deleteContact={deleteContact}
+        />
       ))}
-    </ul>
+    </List>
   );
+};
+
+ContactList.propTypes = {
+  filterContacts: propTypes.array.isRequired,
+  deleteContact: propTypes.func.isRequired,
 };
